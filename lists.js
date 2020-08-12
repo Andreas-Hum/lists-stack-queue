@@ -1,34 +1,5 @@
 const arrSoter = require('./node_modules/@andreas-hum/arraysorter');
-
-/**  Single directional node class
-*/
-class SingleDirNode {
-
-    /**
-     * @param {any} data The nodes data
-     */
-    constructor(data) {
-        this.data = data;
-        this.next = null;
-    }
-
-    /** Returns the next node
-     */
-    getNext() {
-        return this.next;
-    }
-
-    /** Sets the next node
-     * @param {SingleDirNode} nextNode It has to be an instance of this class or null
-     */
-    setNext(nextNode) {
-        if (nextNode instanceof SingleDirNode || !nextNode) {
-            this.next = nextNode;
-        } else {
-            throw new Error('The argument has to an instance of the SingleDirNode or null');
-        }
-    }
-}
+const Node = require('./nodes/singleDirNode')
 
 
 
@@ -47,7 +18,7 @@ class SingleDirLinkedList {
     */
     insertHead(data) {
 
-        const newHead = new SingleDirNode(data);
+        const newHead = new Node(data);
         if (this.head) {
             newHead.setNext(this.head)
         }
@@ -65,7 +36,7 @@ class SingleDirLinkedList {
     */
     insertTail(value) {
 
-        const newTail = new SingleDirNode(value);
+        const newTail = new Node(value);
         if (this.tail) {
             this.tail.setNext(newTail);
         }
@@ -127,8 +98,9 @@ class SingleDirLinkedList {
 
     /** Returns the current list's data as an array
     * @param {String} key If a key is provided then the key will be returned
+    * @param {boolean} drop if true then the list gets dropped
     */
-    returnList(key = null) {
+    returnList(key = null, drop = false) {
 
         if (!this.head) {
             return [];
@@ -147,14 +119,19 @@ class SingleDirLinkedList {
             currentNode = currentNode.getNext();
         }
 
+        if (drop) {
+            this.dropList();
+        }
+
         return list;
 
     }
 
 
     /** Returns the list with all information
+     * @param {boolean} drop if true then the list gets dropped
     */
-    returnFullList() {
+    returnFullList(drop = false) {
 
         if (!this.head) {
             return [];
@@ -169,10 +146,13 @@ class SingleDirLinkedList {
             currentNode = currentNode.getNext();
         }
 
+        if (drop) {
+            this.dropList();
+        }
         return list;
     }
 
-    /** Sorts the current list
+    /** Sorts the current list using mergesort
     * @param {String} comparison If keys are used specify a comparison
     * @param {string} order Sorting order, asc or des. Default is des
     */
@@ -195,8 +175,6 @@ class SingleDirLinkedList {
         }
 
     }
-
-
 
 
     /** Prints the list

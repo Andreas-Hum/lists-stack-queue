@@ -45,8 +45,6 @@ class BiDirNode {
         }
     }
 
-
-
 }
 
-module.exports = SingleDirNode;
+module.exports = BiDirNode;

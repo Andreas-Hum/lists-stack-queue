@@ -178,6 +178,10 @@ class SingleDirLinkedList {
     */
     sortList(comparison = null, order = 'des') {
 
+        if (!this.head) {
+            return [];
+        }
+
         if (order.toLowerCase() !== 'des' && order.toLowerCase() !== 'asc') {
             order = 'des';
         }
@@ -224,5 +228,5 @@ class SingleDirLinkedList {
 const list = new SingleDirLinkedList();
 
 for (let i = 10; i >= 1; i--) {
-    list.insertTail({ 'key': i, 'test': i + 1 });
+    list.insertTail(i);
 }

@@ -1,8 +1,8 @@
 {
   "name": "lists-stack-queue",
   "version": "1.0.0",
-  "description": "A package which contains already made lists, queues and stacks",
-  "main": "lists.js",
+  "description": "A package which contains already made nodes, lists, queues and stacks",
+  "main": "lists-stack-queue.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },

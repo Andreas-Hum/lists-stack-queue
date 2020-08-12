@@ -1,6 +1,5 @@
-const arrSoter = require('./node_modules/@andreas-hum/arraysorter');
-const Node = require('./nodes/singleDirNode')
-
+const arrSoter = require('@andreas-hum/arraysorter');
+const Node = require('./nodes/singleDirNode');
 
 
 /**  Single directional list class
@@ -152,6 +151,20 @@ class SingleDirLinkedList {
         return list;
     }
 
+
+    /**
+    * @param {SingleDirNode} node The note which data should be reassigned
+    * @param {*} data The new data
+    * @param {String} key If a key is specified, then the key's data whill change
+    */
+    reasignData(node, data, key = null) {
+        key
+            ? node.data[key] = data
+            : node.data = data;
+    }
+
+
+
     /** Sorts the current list using mergesort
     * @param {String} comparison If keys are used specify a comparison
     * @param {string} order Sorting order, asc or des. Default is des
@@ -203,8 +216,22 @@ class SingleDirLinkedList {
 
 }
 
+
+class BiDirList {
+
+    constructor() {
+        this.head = null;
+        this.tail = null;
+    }
+
+    insertHead(data) {
+
+    }
+}
+
 const list = new SingleDirLinkedList();
 
 for (let i = 10; i >= 1; i--) {
     list.insertTail(i);
 }
+

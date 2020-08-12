@@ -132,6 +132,15 @@ class SingleDirLinkedList {
     }
 
 
+    /** Returns the current list's data as an array
+    */
+    returnList() {
+
+        let list = [];
+
+    }
+
+
     /** Prints the list
     */
     printList() {

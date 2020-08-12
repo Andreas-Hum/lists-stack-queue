@@ -1,0 +1,27 @@
+{
+  "name": "lists-stack-queue",
+  "version": "1.0.0",
+  "description": "A package which contains already made lists, queues and stacks",
+  "main": "lists.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Andreas-Hum/lists-stack-queue.git"
+  },
+  "keywords": [
+    "list",
+    "stack",
+    "queue"
+  ],
+  "author": "Andreas Svanberg",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Andreas-Hum/lists-stack-queue/issues"
+  },
+  "homepage": "https://github.com/Andreas-Hum/lists-stack-queue#readme",
+  "dependencies": {
+    "@andreas-hum/arraysorter": "^1.0.3"
+  }
+}

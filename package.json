@@ -22,6 +22,6 @@
   },
   "homepage": "https://github.com/Andreas-Hum/lists-stack-queue#readme",
   "dependencies": {
-    "@andreas-hum/arraysorter": "^1.0.3"
+    "@andreas-hum/arraysorter": "^1.0.4"
   }
 }

@@ -1,4 +1,4 @@
-
+const arrSoter = require('./node_modules/@andreas-hum/arraysorter');
 
 /**  Single directional node class
 */
@@ -124,21 +124,75 @@ class SingleDirLinkedList {
     }
 
 
-    /** Drops the list
-    */
-    dropList() {
-        this.head = null;
-        this.tail = null;
-    }
-
 
     /** Returns the current list's data as an array
+    * @param {String} key If a key is provided then the key will be returned
     */
-    returnList() {
+    returnList(key = null) {
 
-        let list = [];
+        if (!this.head) {
+            return [];
+        }
+
+        let
+            list = [],
+            currentNode = this.head;
+
+        while (currentNode) {
+
+            key
+                ? list.push(currentNode.data[key])
+                : list.push(currentNode.data)
+
+            currentNode = currentNode.getNext();
+        }
+
+        return list;
 
     }
+
+
+    /** Returns the list with all information
+    */
+    returnFullList() {
+
+        if (!this.head) {
+            return [];
+        }
+
+        let
+            list = [],
+            currentNode = this.head;
+
+        while (currentNode) {
+            list.push(currentNode);
+            currentNode = currentNode.getNext();
+        }
+
+        return list;
+    }
+
+    /** Sorts the current list
+    * @param {String} comparison If keys are used specify a comparison
+    * @param {string} order Sorting order, asc or des. Default is des
+    */
+    sortList(comparison = null, order = 'des') {
+
+        if (order.toLowerCase() !== 'des' && order.toLowerCase() !== 'asc') {
+            order = 'des';
+        }
+
+        const sortedList = arrSoter.mergeSort(this.returnList(), order, comparison);
+
+        this.dropList();
+
+        for (let i = 0; i < sortedList.length; i++) {
+            this.insertTail(sortedList[i]);
+        }
+
+    }
+
+
 
 
     /** Prints the list
@@ -158,13 +212,17 @@ class SingleDirLinkedList {
     }
 
 
+    /** Drops the list
+    */
+    dropList() {
+        this.head = null;
+        this.tail = null;
+    }
+
 }
 
 const list = new SingleDirLinkedList();
-list.insertHead(10);
-list.insertHead(20);
-// list.deleteHead();
-// list.deleteTail()
-// list.deleteTail()
-console.log(list.tail)
-list.printList();
+
+for (let i = 10; i >= 1; i--) {
+    list.insertTail({ 'key': i, 'test': i + 1 });
+}

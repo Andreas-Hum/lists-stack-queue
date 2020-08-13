@@ -153,14 +153,103 @@ class SingleDirLinkedList {
 
 
     /**
-    * @param {SingleDirNode} node The note which data should be reassigned
+    * @param {SingleDirNode} node The note which data should be reassigned, if left null the method will search for a node with the matching data
     * @param {*} data The new data
     * @param {String} key If a key is specified, then the key's data whill change
+    * @param {boolean} fullObj If set true then the key's whole dataset will change, will not function without the key argument
+    * @returns {SingleDirLinkedList} If the return value is null then no results where found
     */
-    reasignData(node, data, key = null) {
-        key
-            ? node.data[key] = data
-            : node.data = data;
+    reasignData(node = null, data, key = null, fullObj = false) {
+
+
+        if (!key && fullObj) {
+            console.log("fullObj will not function without a key");
+            return;
+        }
+
+        if (key) {
+
+
+            if (this.head === null) {
+                return null;
+            }
+
+            if (this.head.data[key] === data[key] && key && fullObj) {
+                this.head.data = data;
+                return;
+            } else if (this.head.data[key] === data[key] && key) {
+                this.head.data[key] = data[key];
+                return;
+            }
+
+            if (this.tail.data[key] === data[key] && key && fullObj) {
+                this.tail.data = data;
+                return;
+            } else if (this.tail.data[key] === data[key] && key) {
+                this.tail.data[key] = data[key];
+                return;
+            }
+
+
+            if (!node) {
+
+                let currentNode = this.head;
+
+                if (data && key && fullObj) {
+
+                    while (currentNode) {
+                        if (currentNode.data[key] === data[key]) {
+                            currentNode.data = data;
+                            return;
+                        }
+                    }
+
+                    currentNode = currentNode.getNext();
+                }
+
+                if (!currentNode) {
+                    return null;
+                }
+            } else {
+                if (data && key && fullObj) {
+                    node.data = data
+                } else {
+                    node.data[key] = data[key]
+                }
+
+            }
+        } else {
+
+            if (!node) {
+
+                if (this.head.data === data) {
+                    this.head.data = data;
+                    return;
+                } else if (this.tail.data === data) {
+                    this.tail.data = data;
+                    return;
+                }
+
+                let currentNode = this.head;
+
+                while (currentNode) {
+                    if (currentNode.data === data) {
+                        currentNode.data = data;
+                        return;
+                    }
+                }
+
+                return null;
+            }
+
+
+        }
+
+    }
+
+
+    searchViaKey(key, data) {
+
     }
 
 

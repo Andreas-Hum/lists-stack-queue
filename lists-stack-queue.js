@@ -187,11 +187,34 @@ class SingleDirLinkedList {
 
     /** Searches for all nodes via key pair value
     * @param {String} key The key that should be searched for
-    * @param {*} data The key's data
-    * @returns Returns the node with the matching key pair value else null
+    * @param {*} data The keys data
+    * @returns Returns the nodes in an array with the matching key pair value else null
     */
     searchAllViaKey(key, data) {
 
+        if (!key || !data) {
+            throw new Error('Argument missing');
+        }
+
+        if (!this.head) {
+            return null;
+        }
+
+        const holdArray = [];
+        let currentNode = this.head;
+
+        while (currentNode) {
+            if (currentNode.data[key] === data) {
+                holdArray.push(currentNode);
+            }
+            currentNode = currentNode.getNext();
+        }
+
+        if (holdArray.length) {
+            return holdArray;
+        } else {
+            null;
+        }
     }
 
 

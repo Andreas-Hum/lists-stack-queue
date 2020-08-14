@@ -153,11 +153,15 @@ class SingleDirLinkedList {
 
 
     /** Search for a node via key pair value
-     * @param {String} key The key that should be searched for
-     * @param {*} data The key's data
-     * @returns Returns the node with the matching key pair value else null
-     */
-    searchViaKey(key, data) {
+    * @param {String} key The key that should be searched for
+    * @param {*} data The key's data
+    * @returns Returns the node with the matching key pair value else null
+    */
+    searchByKey(key, data) {
+
+        if (!key || !data) {
+            throw new Error('Argument missing');
+        }
 
         if (!this.head) {
             return null;
@@ -179,6 +183,14 @@ class SingleDirLinkedList {
         }
 
         return null;
+    }
+
+    /** Searches for all nodes via key pair value
+    * @param {String} key The key that should be searched for
+    * @param {*} data The key's data
+    * @returns Returns the node with the matching key pair value else null
+    */
+    searchAllViaKey(key, data) {
 
     }
 

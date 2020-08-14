@@ -1,5 +1,5 @@
 const arrSoter = require('@andreas-hum/arraysorter');
-const Node = require('./nodes/singleDirNode');
+const SingleDirNode = require('./nodes/singleDirNode');
 
 
 /**  Single directional list class
@@ -17,7 +17,7 @@ class SingleDirLinkedList {
     */
     insertHead(data) {
 
-        const newHead = new Node(data);
+        const newHead = new SingleDirNode(data);
         if (this.head) {
             newHead.setNext(this.head)
         }
@@ -35,7 +35,7 @@ class SingleDirLinkedList {
     */
     insertTail(value) {
 
-        const newTail = new Node(value);
+        const newTail = new SingleDirNode(value);
         if (this.tail) {
             this.tail.setNext(newTail);
         }
@@ -95,7 +95,7 @@ class SingleDirLinkedList {
 
 
 
-    /** Returns the current list's data as an array
+    /** Returns the current list's data as an array with the key
     * @param {String} key If a key is provided then the key will be returned
     * @param {boolean} drop if true then the list gets dropped
     */
@@ -152,103 +152,33 @@ class SingleDirLinkedList {
     }
 
 
-    /**
-    * @param {SingleDirNode} node The note which data should be reassigned, if left null the method will search for a node with the matching data
-    * @param {*} data The new data
-    * @param {String} key If a key is specified, then the key's data whill change
-    * @param {boolean} fullObj If set true then the key's whole dataset will change, will not function without the key argument
-    * @returns {SingleDirLinkedList} If the return value is null then no results where found
-    */
-    reasignData(node = null, data, key = null, fullObj = false) {
-
-
-        if (!key && fullObj) {
-            console.log("fullObj will not function without a key");
-            return;
-        }
-
-        if (key) {
-
-
-            if (this.head === null) {
-                return null;
-            }
-
-            if (this.head.data[key] === data[key] && key && fullObj) {
-                this.head.data = data;
-                return;
-            } else if (this.head.data[key] === data[key] && key) {
-                this.head.data[key] = data[key];
-                return;
-            }
-
-            if (this.tail.data[key] === data[key] && key && fullObj) {
-                this.tail.data = data;
-                return;
-            } else if (this.tail.data[key] === data[key] && key) {
-                this.tail.data[key] = data[key];
-                return;
-            }
-
-
-            if (!node) {
-
-                let currentNode = this.head;
-
-                if (data && key && fullObj) {
-
-                    while (currentNode) {
-                        if (currentNode.data[key] === data[key]) {
-                            currentNode.data = data;
-                            return;
-                        }
-                    }
-
-                    currentNode = currentNode.getNext();
-                }
-
-                if (!currentNode) {
-                    return null;
-                }
-            } else {
-                if (data && key && fullObj) {
-                    node.data = data
-                } else {
-                    node.data[key] = data[key]
-                }
-
-            }
-        } else {
-
-            if (!node) {
-
-                if (this.head.data === data) {
-                    this.head.data = data;
-                    return;
-                } else if (this.tail.data === data) {
-                    this.tail.data = data;
-                    return;
-                }
-
-                let currentNode = this.head;
-
-                while (currentNode) {
-                    if (currentNode.data === data) {
-                        currentNode.data = data;
-                        return;
-                    }
-                }
-
-                return null;
-            }
-
-
-        }
-
-    }
-
-
+    /** Search for a node via key pair value
+     * @param {String} key The key that should be searched for
+     * @param {*} data The key's data
+     * @returns Returns the node with the matching key pair value else null
+     */
     searchViaKey(key, data) {
+
+        if (!this.head) {
+            return null;
+        }
+
+        if (this.head.data[key] === data) {
+            return this.head;
+        } else if (this.tail.data[key] === data) {
+            return this.node
+        }
+
+
+        let currentNode = this.head;
+        while (currentNode) {
+            if (currentNode.data[key] === data) {
+                return currentNode;
+            }
+            currentNode = currentNode.getNext();
+        }
+
+        return null;
 
     }
 
@@ -323,4 +253,6 @@ const list = new SingleDirLinkedList();
 for (let i = 10; i >= 1; i--) {
     list.insertTail(i);
 }
+
+list.reasignData(null,)
 

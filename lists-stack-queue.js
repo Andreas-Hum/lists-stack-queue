@@ -153,13 +153,13 @@ class SingleDirLinkedList {
 
 
     /** Search for a node via data or key
+    * @param {*} data The nodes data if left null will return the first node with the elements key or data
     * @param {String} key The key that should be searched for, if left null will only search for data
-    * @param {*} data The nodes data if left null will return the first node with the elements key
     * @returns Returns the first node with the matching the matching information
     */
-    searchByData(key = null, data = null) {
+    searchByData(data = null, key = null) {
 
-        if (!key && !data) {
+        if (key === null && data === null) {
             throw new Error('Arguments are null');
         }
 
@@ -209,13 +209,13 @@ class SingleDirLinkedList {
     }
 
     /** Searches for all nodes with a specefic key
+    * @param {*} data The nodes data if left null will return the first node with the elements key or data
     * @param {String} key The key that should be searched for, if left null will only use data
-    * @param {*} data The keys data, if left null will return all nodes with keys that match the argument
     * @returns Returns the nodes in an array with the matching key (pair) values else null
     */
-    searchAllViaData(key = null, data = null) {
+    searchAllViaData(data = null, key = null) {
 
-        if (!key && !data) {
+        if (key === null && data === null) {
             throw new Error('Arguments are null');
         }
 
@@ -223,17 +223,32 @@ class SingleDirLinkedList {
             return null;
         }
 
-        let list;
+        let list = [];
 
-        if (data) {
-            list = this.returnFullList().filter(element => element.data[key] === data);
+        if (key) {
+
+            if (data) {
+                list = this.returnFullList().filter(element => element.data[key] === data);
+            } else {
+                list = this.returnFullList().filter(element => element.data[key] !== undefined);
+            }
+
+            return list.length
+                ? list
+                : null;
+
         } else {
-            list = this.returnFullList().filter(element => element.data[key] !== undefined);
-        }
 
-        return list.length
-            ? list
-            : null;
+            if (data) {
+                list = this.returnFullList().filter(element => element.data === data);
+            }
+
+
+            return list.length
+                ? list
+                : null;;
+
+        }
 
     }
 
@@ -249,10 +264,6 @@ class SingleDirLinkedList {
             return [];
         }
 
-        if (order.toLowerCase() !== 'des' && order.toLowerCase() !== 'asc') {
-            order = 'des';
-        }
-
         const sortedList = arrSoter.mergeSort(this.returnList(), order, comparison);
 
         this.dropList();
@@ -264,7 +275,7 @@ class SingleDirLinkedList {
     }
 
 
-    /** Prints the list
+    /** Prints the list's data
     */
     printList() {
 
@@ -301,5 +312,12 @@ class BiDirList {
     insertHead(data) {
 
     }
+}
+
+
+const list = new SingleDirLinkedList();
+
+for (let i = 0; i < 10; i++) {
+    list.insertHead({ 'key': i });
 }
 

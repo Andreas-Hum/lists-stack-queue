@@ -152,69 +152,89 @@ class SingleDirLinkedList {
     }
 
 
-    /** Search for a node via key pair value
-    * @param {String} key The key that should be searched for
-    * @param {*} data The key's data
-    * @returns Returns the node with the matching key pair value else null
+    /** Search for a node via data or key
+    * @param {String} key The key that should be searched for, if left null will only search for data
+    * @param {*} data The nodes data if left null will return the first node with the elements key
+    * @returns Returns the first node with the matching the matching information
     */
-    searchByKey(key, data) {
+    searchByData(key = null, data = null) {
 
-        if (!key || !data) {
-            throw new Error('Argument missing');
+        if (!key && !data) {
+            throw new Error('Arguments are null');
         }
 
         if (!this.head) {
             return null;
         }
 
-        if (this.head.data[key] === data) {
-            return this.head;
-        } else if (this.tail.data[key] === data) {
-            return this.node
-        }
+        let list = [];
 
+        if (key) {
 
-        let currentNode = this.head;
-        while (currentNode) {
-            if (currentNode.data[key] === data) {
-                return currentNode;
+            if (this.head.data[key] === data) {
+                return this.head;
+            } else if (this.tail.data === data) {
+                return this.tail;
             }
-            currentNode = currentNode.getNext();
+
+            if (data) {
+                list = this.returnFullList().filter(element => element.data[key] === data);
+            } else {
+                list = this.returnFullList().filter(element => element.data[key] !== undefined);
+            }
+
+            return list.length
+                ? list[0]
+                : null;
+
+        } else {
+
+            if (this.head.data === data) {
+                return this.head;
+            } else if (this.tail.data === data) {
+                return this.tail;
+            }
+
+            if (data) {
+                list = this.returnFullList().filter(element => element.data === data);
+            }
+
+            return list.length
+                ? list[0]
+                : null;;
+
         }
 
-        return null;
+
     }
 
-    /** Searches for all nodes via key pair value
-    * @param {String} key The key that should be searched for
-    * @param {*} data The keys data
-    * @returns Returns the nodes in an array with the matching key pair value else null
+    /** Searches for all nodes with a specefic key
+    * @param {String} key The key that should be searched for, if left null will only use data
+    * @param {*} data The keys data, if left null will return all nodes with keys that match the argument
+    * @returns Returns the nodes in an array with the matching key (pair) values else null
     */
-    searchAllViaKey(key, data) {
+    searchAllViaData(key = null, data = null) {
 
-        if (!key || !data) {
-            throw new Error('Argument missing');
+        if (!key && !data) {
+            throw new Error('Arguments are null');
         }
 
         if (!this.head) {
             return null;
         }
 
-        const holdArray = [];
-        let currentNode = this.head;
+        let list;
 
-        while (currentNode) {
-            if (currentNode.data[key] === data) {
-                holdArray.push(currentNode);
-            }
-            currentNode = currentNode.getNext();
-        }
-
-        if (holdArray.length) {
-            return holdArray;
+        if (data) {
+            list = this.returnFullList().filter(element => element.data[key] === data);
         } else {
-            null;
+            list = this.returnFullList().filter(element => element.data[key] !== undefined);
         }
+
+        return list.length
+            ? list
+            : null;
+
     }
 
 
@@ -282,12 +302,4 @@ class BiDirList {
 
     }
 }
-
-const list = new SingleDirLinkedList();
-
-for (let i = 10; i >= 1; i--) {
-    list.insertTail(i);
-}
-
-list.reasignData(null,)
 

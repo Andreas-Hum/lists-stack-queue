@@ -153,7 +153,7 @@ class SingleDirLinkedList {
 
 
     /** Search for a node via data or key
-    * @param {*} data The nodes data if left null will return the first node with the elements key or data
+    * @param {*} data The nodes data if, left null will return the first node with the elements key or data
     * @param {String} key The key that should be searched for, if left null will only search for data
     * @returns Returns the first node with the matching the matching information
     */
@@ -275,6 +275,46 @@ class SingleDirLinkedList {
     }
 
 
+    /** Reasigns the first nodes data that matches the data or key
+    * @param {*} data The nodes data if left null the first key that matches the key will be reasigned
+    * @param {*} newDat The new data
+    * @param {String} key The key that should be searched for and, if left null will only use data to search for node
+    * @returns Returns null if the data has not been reasigned
+    */
+    reasignData(data = null, newDat, key = null) {
+
+        if (key === null && data === null) {
+            throw new Error('Arguments are null');
+        }
+
+        if (!data && !newDat) {
+            throw new Error('Data is missing');
+        }
+
+        let list = [];
+
+        if (key) {
+
+            if (data) {
+                list = this.returnFullList().filter(element => element.data[key] === data);
+                list[0].data[key] = newDat;
+            } else {
+                list = this.returnFullList().filter(element => element.data[key] !== undefined);
+                list[0].data = newDat;
+            }
+
+        } else {
+
+            list = this.returnFullList().filter(element => element.data === data);
+            list[0].data = newDat
+        }
+
+        if (!list.length) {
+            return null;
+        }
+    }
+
+
     /** Prints the list's data
     */
     printList() {
@@ -318,6 +358,6 @@ class BiDirList {
 const list = new SingleDirLinkedList();
 
 for (let i = 0; i < 10; i++) {
+    // list.insertHead({ 'key': i });
     list.insertHead({ 'key': i });
 }
-

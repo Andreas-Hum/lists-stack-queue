@@ -38,8 +38,8 @@ class BiDirNode {
     * @param {BiDirNode} previousNode It has to be an instance of the BiDirNode class or null
     */
     setPrevious(previousNode) {
-        if (nextNode instanceof BiDirNode || !nextNode) {
-            this.next = nextNode;
+        if (previousNode instanceof BiDirNode || !previousNode) {
+            this.previous = previousNode;
         } else {
             throw new Error('The argument has to an instance of the BiDirNode class or null');
         }

@@ -357,7 +357,3 @@ class BiDirList {
 
 const list = new SingleDirLinkedList();
 
-for (let i = 0; i < 10; i++) {
-    // list.insertHead({ 'key': i });
-    list.insertHead({ 'key': i });
-}
